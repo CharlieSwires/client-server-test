@@ -52,10 +52,8 @@ public class MyService {
                 Stream<?> neighbourStream = neighboursList.parallelStream().map((x) -> 
                 !hasCurrency(getCurrencyForCountry(x)
                         .get(0).getCurrencies(),
-                        currency)? (x) : "false");
-                for(String item : (List<String>)neighbourStream.collect(Collectors.toList())) {
-                    if(!item.equals("false")) bordersThatDontShareCurrency.add(item);
-                }
+                        currency)? (x) : "false").filter((y)->!y.equals("false"));
+                bordersThatDontShareCurrency = (List<String>)neighbourStream.collect(Collectors.toList());
             }
         }
         List<List<String>> overallResult = new ArrayList<List<String>>();
