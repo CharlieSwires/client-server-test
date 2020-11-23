@@ -53,7 +53,7 @@ public class MyService {
                 !hasCurrency(getCurrencyForCountry(x)
                         .get(0).getCurrencies(),
                         currency)? (x) : "false").filter((y)->!y.equals("false"));
-                bordersThatDontShareCurrency = (List<String>)neighbourStream.collect(Collectors.toList());
+                bordersThatDontShareCurrency.addAll((List<String>)neighbourStream.collect(Collectors.toList()));
             }
         }
         List<List<String>> overallResult = new ArrayList<List<String>>();
