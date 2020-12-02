@@ -49,10 +49,15 @@ public class MyService {
                 result.add(cu.getAlpha3Code());
                 String[] neighbours = cu.getBorders();
                 List<String> neighboursList = Arrays.asList(neighbours);
-                Stream<?> neighbourStream = neighboursList.parallelStream().map((x) -> 
-                !hasCurrency(getCurrencyForCountry(x)
-                        .get(0).getCurrencies(),
-                        currency)? (x) : "false").filter((y)->!y.equals("false"));
+                Stream<?> neighbourStream = neighboursList.parallelStream()
+                        //get the currencies for the neighbours if not match map to the country code
+                        //otherwise false
+                        .map((x) -> 
+                        !hasCurrency(getCurrencyForCountry(x).get(0).getCurrencies(),currency)
+                        ? (x) : "false")
+                        //filter out the falses.
+                        .filter((y) -> !y.equals("false"));
+
                 bordersThatDontShareCurrency.addAll((List<String>)neighbourStream.collect(Collectors.toList()));
             }
         }
